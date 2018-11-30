@@ -1,6 +1,7 @@
 from airflow.models import DAG, DagRun, TaskInstance, Log, XCom, SlaMiss, DagModel, Variable
 from airflow.jobs import BaseJob
 from airflow.models import settings
+from airflow.settings import TIMEZONE
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 import os
@@ -59,7 +60,7 @@ def print_configuration_function(**context):
     if max_db_entry_age_in_days is None:
         logging.info("maxDBEntryAgeInDays conf variable isn't included. Using Default '" + str(DEFAULT_MAX_DB_ENTRY_AGE_IN_DAYS) + "'")
         max_db_entry_age_in_days = DEFAULT_MAX_DB_ENTRY_AGE_IN_DAYS
-    max_date = datetime.now() + timedelta(-max_db_entry_age_in_days)
+    max_date = datetime.now(tz=TIMEZONE) + timedelta(-max_db_entry_age_in_days)
     logging.info("Finished Loading Configurations")
     logging.info("")
 
