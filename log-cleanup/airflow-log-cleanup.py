@@ -15,7 +15,7 @@ airflow trigger_dag --conf '{"maxLogAgeInDays":30}' airflow-log-cleanup
 """
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")  # airflow-log-cleanup
-START_DATE = datetime.now() - timedelta(minutes=1)
+START_DATE = datetime(year=1970, month=1, day=1)
 BASE_LOG_FOLDER = conf.get("core", "BASE_LOG_FOLDER")
 SCHEDULE_INTERVAL = "@daily"        # How often to Run. @daily - Once a day at Midnight
 DAG_OWNER_NAME = "operations"       # Who is listed as the owner of this DAG in the Airflow Web Server
@@ -34,7 +34,13 @@ default_args = {
     'retry_delay': timedelta(minutes=1)
 }
 
-dag = DAG(DAG_ID, default_args=default_args, schedule_interval=SCHEDULE_INTERVAL, start_date=START_DATE)
+dag = DAG(
+    DAG_ID,
+    default_args=default_args,
+    schedule_interval=SCHEDULE_INTERVAL,
+    start_date=START_DATE,
+    catchup=False
+)
 
 cleanup_tasks = {}
 for log_cleanup_id in range(1, NUMBER_OF_WORKERS + 1):

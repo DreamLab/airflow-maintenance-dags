@@ -17,7 +17,7 @@ airflow trigger_dag airflow-kill-halted-tasks
 """
 
 DAG_ID = os.path.basename(__file__).replace(".pyc", "").replace(".py", "")  # airflow-kill-halted-tasks
-START_DATE = datetime.now() - timedelta(minutes=1)
+START_DATE = datetime(year=1970, month=1, day=1)
 SCHEDULE_INTERVAL = "@hourly"           # How often to Run. @daily - Once a day at Midnight. @hourly - Once an Hour.
 DAG_OWNER_NAME = "operations"           # Who is listed as the owner of this DAG in the Airflow Web Server
 ALERT_EMAIL_ADDRESSES = []              # List of email address to send email alerts to if this job fails
@@ -37,7 +37,13 @@ default_args = {
     'retry_delay': timedelta(minutes=1)
 }
 
-dag = DAG(DAG_ID, default_args=default_args, schedule_interval=SCHEDULE_INTERVAL, start_date=START_DATE)
+dag = DAG(
+    DAG_ID,
+    default_args=default_args,
+    schedule_interval=SCHEDULE_INTERVAL,
+    start_date=START_DATE,
+    catchup=False
+)
 
 uid_regex = "(\w+)"
 pid_regex = "(\w+)"
