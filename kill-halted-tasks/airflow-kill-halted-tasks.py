@@ -1,11 +1,12 @@
 from airflow import version
+from pkg_resources import parse_version
 
-if version.version == '1.10.5':
+if parse_version(version.version).base_version  == '1.10.5':
    from airflow import settings
    from airflow.models.dag import DAG, DagModel
    from airflow.models.dagrun import DagRun
    from airflow.models.taskinstance import TaskInstance
-elif version.version == '1.10.3':
+elif parse_version(version.version).base_version == '1.10.3':
    from airflow.models import DAG, DagModel, DagRun, TaskInstance, settings
 else:
    from airflow import settings
