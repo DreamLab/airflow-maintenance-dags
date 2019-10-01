@@ -1,6 +1,14 @@
+from airflow import version
+
+if version.version == '1.10.5':
+   from airflow import settings
+elif version.version == '1.10.3':
+   from airflow.models import settings
+else:
+   from airflow import settings
+
 from airflow.models import DAG, DagRun, TaskInstance, Log, XCom, SlaMiss, DagModel, Variable
 from airflow.jobs import BaseJob
-from airflow import settings
 from airflow.settings import TIMEZONE
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta

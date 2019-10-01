@@ -1,7 +1,18 @@
-from airflow import settings
-from airflow.models.dag import DAG, DagModel
-from airflow.models.dagrun import DagRun
-from airflow.models.taskinstance import TaskInstance
+from airflow import version
+
+if version.version == '1.10.5':
+   from airflow import settings
+   from airflow.models.dag import DAG, DagModel
+   from airflow.models.dagrun import DagRun
+   from airflow.models.taskinstance import TaskInstance
+elif version.version == '1.10.3':
+   from airflow.models import DAG, DagModel, DagRun, TaskInstance, settings
+else:
+   from airflow import settings
+   from airflow.models.dag import DAG, DagModel
+   from airflow.models.dagrun import DagRun
+   from airflow.models.taskinstance import TaskInstance
+
 from airflow.operators.python_operator import PythonOperator, ShortCircuitOperator
 from airflow.operators.email_operator import EmailOperator
 from sqlalchemy import and_
