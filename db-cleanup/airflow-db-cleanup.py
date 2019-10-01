@@ -1,13 +1,4 @@
-from airflow import version
-from pkg_resources import parse_version
-
-if parse_version(version.version).base_version == '1.10.5':
-   from airflow import settings
-elif parse_version(version.version).base_version == '1.10.3':
-   from airflow.models import settings
-else:
-   from airflow import settings
-
+from airflow import settings
 from airflow.models import DAG, DagRun, TaskInstance, Log, XCom, SlaMiss, DagModel, Variable
 from airflow.jobs import BaseJob
 from airflow.settings import TIMEZONE
