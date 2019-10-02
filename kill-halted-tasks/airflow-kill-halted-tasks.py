@@ -1,4 +1,7 @@
-from airflow.models import DAG, DagModel, DagRun, TaskInstance, settings
+from airflow import settings
+from airflow.models.dag import DAG, DagModel
+from airflow.models.dagrun import DagRun
+from airflow.models.taskinstance import TaskInstance
 from airflow.operators.python_operator import PythonOperator, ShortCircuitOperator
 from airflow.operators.email_operator import EmailOperator
 from sqlalchemy import and_

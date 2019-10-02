@@ -1,6 +1,6 @@
+from airflow import settings
 from airflow.models import DAG, DagRun, TaskInstance, Log, XCom, SlaMiss, DagModel, Variable
 from airflow.jobs import BaseJob
-from airflow.models import settings
 from airflow.settings import TIMEZONE
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
